@@ -1,11 +1,19 @@
 const signup = require('./signup')
 const login = require('./login')
 const logout = require('./logout')
-const task = require('./task')
+const createTask = require('./createTask')
+const updateTask = require('./updateTask')
+const deleteTask = require('./deleteTask')
+const getTask = require('./getTask')
+const getAllTasks = require('./getAllTasks')
 
 module.exports = [
    signup,
    login,
    logout,
-   task
+   createTask,
+   updateTask,
+   deleteTask,
+   getTask,
+   getAllTasks
 ]
