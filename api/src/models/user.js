@@ -14,6 +14,10 @@ const UserSchema = new mongoose.Schema({
     {
         type: Boolean,
         default: false
+    },
+    assignments: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Task'
     }
 })
 

@@ -1,28 +1,36 @@
 const express = require('express')
 const router = express.Router()
+const { validationResult } = require('express-validator');
 
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
 
 
-router.post('/v2/signup', async (req, res) => {
-
+router.post('/v2/signup', async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const error = new Error('Validation failed.');
+        error.statusCode = 422;
+        error.data = errors.array();
+        throw error;
+    }
+    const email = req.body.email;
+    const password = req.body.password;
     try {
-
-        const { email, password } = req.body
-
-        const hashedPassword = await bcrypt.hash(password, 10)
+        const hashedPw = await bcrypt.hash(password, 12);
 
         const user = new User({
-            email,
-            password: hashedPassword
-        })
-        await user.save()
-
-        return res.status(201).send({ user: user })
-        
-    } catch (error) {
-        res.status(500).send({ error: error })
+            email: email,
+            password: hashedPw,
+        });
+        const result = await user.save();
+        res.status(201).json({ message: 'User created!', userId: result._id });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
     }
 })
+
 module.exports = router

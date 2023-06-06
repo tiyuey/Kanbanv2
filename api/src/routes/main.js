@@ -6,6 +6,7 @@ const updateTask = require('./updateTask')
 const deleteTask = require('./deleteTask')
 const getTask = require('./getTask')
 const getAllTasks = require('./getAllTasks')
+const users = require('./users')
 
 module.exports = [
    signup,
@@ -15,5 +16,6 @@ module.exports = [
    updateTask,
    deleteTask,
    getTask,
-   getAllTasks
+   getAllTasks,
+   users
 ]
