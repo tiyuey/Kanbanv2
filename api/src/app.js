@@ -20,12 +20,8 @@ app.use(
         secret: 'secret',
         saveUninitialized: false,
         resave: false,
-        cookie: {
-            maxAge: 3600000,
-            secure: true,
-            httpOnly: true,
         },
-    })
+    )
 );
 const routes = require('./routes/main');
 app.use(routes)

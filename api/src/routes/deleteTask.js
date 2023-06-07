@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Task = require('../models/task');
+const isAuth = require('../../middleware/isAuth');
 
 router.delete('/v2/tasks/:id', async (req, res) => {
     try {
