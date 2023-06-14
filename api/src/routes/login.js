@@ -27,7 +27,7 @@ router.post('/v2/login', async (req, res, next) => {
                 email: loadedUser.email,
                 userId: loadedUser._id.toString()
             },
-            'somesupersecretsecret',
+            '<jwtsecret>',
             { expiresIn: '1h' }
         );
         

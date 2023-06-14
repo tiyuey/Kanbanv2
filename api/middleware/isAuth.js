@@ -8,7 +8,7 @@ const isAuth = (req, res, next) => {
   }
 
   try {
-    const decodedToken = jwt.verify(token.split(' ')[1], 'somesupersecretsecret');
+    const decodedToken = jwt.verify(token.split(' ')[1], '<jwtsecret>');
     req.userId = decodedToken.userId;
     next();
   } catch (error) {

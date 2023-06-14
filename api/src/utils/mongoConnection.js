@@ -3,7 +3,7 @@ require('dotenv').config()
 mongoose.set('strictQuery', true)
 
 const db = async () => {
-    const MONGO_URI = 'mongodb+srv://talhaubeytalan:NaJ8lunJdYddFPfI@cluster1.xkchhlh.mongodb.net/kanban?retryWrites=true&w=majority'
+    const MONGO_URI = 'mongodb+srv://<username>:<password>@cluster1.xkchhlh.mongodb.net/kanban?retryWrites=true&w=majority'
 
 
     try {
