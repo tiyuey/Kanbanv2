@@ -5,13 +5,22 @@ const Task = require('../models/task');
 const isAuth = require('../../middleware/isAuth');
 
 router.post('/v2/tasks', isAuth, async (req, res, next) => {
-    const task = new Task(req.body);
-    try {
-      await task.save();
-      res.status(201).json({ message: 'Task saved successfully', task: task });
-    } catch (error) {
-      next(error);
-    }
+  const { title, description, brand, assignedTo, dueDate } = req.body;
+
+  const task = new Task({
+    title,
+    description,
+    brand,
+    assignedTo,
+    dueDate,
   });
 
-  module.exports = router;
+  try {
+    await task.save();
+    res.status(201).json({ message: 'Task saved successfully', task });
+  } catch (error) {
+    next(error);
+  }
+});
+
+module.exports = router;

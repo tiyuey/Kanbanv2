@@ -29,6 +29,12 @@ const TaskSchema = new mongoose.Schema({
     required: true,
     default: 'To Do',
   },
-});
+  startDate: {
+    type: Date,
+    default: null
+  },
+},
+{ timestamps: true }
+);
 
 module.exports = mongoose.model('Task', TaskSchema);

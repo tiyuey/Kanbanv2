@@ -4,7 +4,7 @@ const router = express.Router();
 const Task = require('../models/task');
 const isAuth = require('../../middleware/isAuth');
 
-router.delete('/v2/tasks/:id', async (req, res) => {
+router.delete('/v2/tasks/:id', isAuth, async (req, res) => {
     try {
       const task = await Task.findByIdAndDelete(req.params.id);
       if (!task) {

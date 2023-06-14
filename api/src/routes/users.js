@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const isAuth = require('../../middleware/isAuth');
 
-router.get('/v2/users', async (req, res) => {
+
+router.get('/v2/users', isAuth, async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);

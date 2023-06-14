@@ -30,8 +30,13 @@ router.post('/v2/login', async (req, res, next) => {
             'somesupersecretsecret',
             { expiresIn: '1h' }
         );
-        res.status(200).json({ token: token, userId: loadedUser._id.toString() });
-        return;
+        
+        return res.status(200).json({
+            statusCode: 200,
+            msg: "Login successful",
+            token,
+          });
+
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
