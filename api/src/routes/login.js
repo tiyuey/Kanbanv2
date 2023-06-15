@@ -27,7 +27,7 @@ router.post('/v2/login', async (req, res, next) => {
                 email: loadedUser.email,
                 userId: loadedUser._id.toString()
             },
-            '<jwtsecret>',
+            process.env.JWT_KEY,
             { expiresIn: '1h' }
         );
         

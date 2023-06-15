@@ -3,11 +3,9 @@ require('dotenv').config()
 mongoose.set('strictQuery', true)
 
 const db = async () => {
-    const MONGO_URI = 'mongodb+srv://<username>:<password>@cluster1.xkchhlh.mongodb.net/kanban?retryWrites=true&w=majority'
-
 
     try {
-        mongoose.connect(MONGO_URI, {
+        mongoose.connect(process.env.MONGO_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true, 
         })
