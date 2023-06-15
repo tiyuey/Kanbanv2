@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import instance from '../axios';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -12,12 +12,12 @@ const Login = () => {
     e.preventDefault();
     try {
       const formData = { email, password };
-      const response = await axios.post('http://localhost:5001/v2/login', formData);
+      const response = await instance.post('login', formData);
 
       const token = response.data.token;
 
       localStorage.setItem('token', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+    
       navigate('/tasks');
       console.log(formData);
     } catch (error) {

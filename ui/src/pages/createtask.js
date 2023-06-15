@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import instance from '../axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -18,7 +18,7 @@ const CreateTask = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/v2/users');
+      const response = await instance.get('users');
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -29,7 +29,7 @@ const CreateTask = () => {
     event.preventDefault();
 
     try {
-        await axios.post('http://localhost:5001/v2/tasks', {
+        await instance.post('tasks', {
           title,
           description,
           brand,
@@ -53,17 +53,6 @@ const CreateTask = () => {
         });
       }
     };
-    useEffect(() => {
-      const interceptor = axios.interceptors.request.use((config) => {
-        const token = localStorage.getItem('token');
-        config.headers.Authorization = `Bearer ${token}`;
-        return config;
-      });
-  
-      return () => {
-        axios.interceptors.request.eject(interceptor);
-      };
-    }, []);
   
 
     return (

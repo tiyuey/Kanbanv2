@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import instance from '../axios';
 
 const TaskDetail = () => {
   const [task, setTask] = useState(null);
@@ -17,7 +17,7 @@ const TaskDetail = () => {
 
   const fetchTask = async () => {
     try {
-      const response = await axios.get(`http://localhost:5001/v2/tasks/${id}`);
+      const response = await instance.get(`tasks/${id}`);
       const fetchedTask = response.data;
       setTask(fetchedTask);
     } catch (error) {
@@ -27,7 +27,7 @@ const TaskDetail = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/v2/users');
+      const response = await instance.get('users');
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -36,7 +36,7 @@ const TaskDetail = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5001/v2/tasks/${id}`);
+      await instance.delete(`tasks/${id}`);
       navigate('/tasks');
     } catch (error) {
       console.error('Error deleting task:', error);
@@ -62,7 +62,7 @@ const TaskDetail = () => {
   const handleStartDateNull = async () => {
     const updatedTask = { ...task, startDate: null, status: "To Do" };
     try {
-      await axios.put(`http://localhost:5001/v2/tasks/${id}`, updatedTask);
+      await instance.put(`tasks/${id}`, updatedTask);
       setTask(updatedTask);
     } catch (error) {
       console.error('Error updating task:', error);

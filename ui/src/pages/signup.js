@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import instance from '../axios';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
@@ -12,7 +12,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formData = await axios.post('http://localhost:5001/v2/signup', {
+      const formData = await instance.post('signup', {
         email,
         password,
       });

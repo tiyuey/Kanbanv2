@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import instance from '../axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -22,7 +22,7 @@ const EditTask = ({ props }) => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/v2/users');
+      const response = await instance.get('users');
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -31,7 +31,7 @@ const EditTask = ({ props }) => {
 
   const fetchTask = async () => {
     try {
-      const response = await axios.get(`http://localhost:5001/v2/tasks/${id}`);
+      const response = await instance.get(`tasks/${id}`);
       const task = response.data;
       setTitle(task.title);
       setDescription(task.description);
@@ -48,7 +48,7 @@ const EditTask = ({ props }) => {
     event.preventDefault();
 
     try {
-      await axios.put(`http://localhost:5001/v2/tasks/${id}`, {
+      await instance.put(`tasks/${id}`, {
         title,
         description,
         brand,

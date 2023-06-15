@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import instance from '../axios';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import TaskDetail from "./taskdetail";
@@ -17,7 +17,7 @@ const TaskPage = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/v2/tasks");
+      const response = await instance.get("tasks");
       setTasks(response.data);
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -43,7 +43,7 @@ const TaskPage = () => {
     }
     
     try {
-      await axios.put(`http://localhost:5001/v2/tasks/${updatedTask._id}`, updatedTask);
+      await instance.put(`tasks/${updatedTask._id}`, updatedTask);
       setTasks(updatedTasks);
     } catch (error) {
       console.error("Error updating task:", error);
@@ -79,7 +79,7 @@ const TaskPage = () => {
       label: "In Progress",
       tasks: filteredTasks.filter((task) => task.status === "In Progress"),
     },
-    Complete: {
+    "Complete": {
       label: "Complete",
       tasks: filteredTasks.filter((task) => task.status === "Complete"),
     },
