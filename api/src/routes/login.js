@@ -31,18 +31,10 @@ router.post('/v2/login', async (req, res, next) => {
             { expiresIn: '1h' }
         );
 
-        const refreshToken = jwt.sign(
-            {
-                email: loadedUser.email,
-                userId: loadedUser._id.toString()
-            }, process.env.JWT_REFRESH,
-            { expiresIn: '7d' }
-        );
-
         return res.status(200).json({
             statusCode: 200,
             msg: "Login successful",
-            token, refreshToken
+            token
         });
 
     } catch (err) {
